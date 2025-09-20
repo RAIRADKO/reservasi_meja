@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "101076840295",
+    "project_id": "reservasimeja-60ddd",
+    "storage_bucket": "reservasimeja-60ddd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101076840295:android:dc64ab69e31234239a89c2",
+        "android_client_info": {
+          "package_name": "com.example.reservasi_meja"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCneP4vd-sKsfUcxWpGfqghi-GGFBn-lSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
