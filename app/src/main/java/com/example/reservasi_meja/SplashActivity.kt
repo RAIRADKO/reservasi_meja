@@ -11,15 +11,16 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Check if user is logged in
-        val auth = FirebaseAuth.getInstance()
-        val intent = if (auth.currentUser != null) {
-            Intent(this, MainActivity::class.java)
-        } else {
-            Intent(this, LoginActivity::class.java)
-        }
-
+        // Perbaikan: Tidak perlu setContentView, karena background sudah diatur di tema
+        // Perbaikan: Menggunakan postDelayed untuk transisi yang lebih mulus
         Handler(Looper.getMainLooper()).postDelayed({
+            // Perbaikan: Mengambil instance Firebase Auth sekali di luar if/else
+            val auth = FirebaseAuth.getInstance()
+            val intent = if (auth.currentUser != null) {
+                Intent(this, MainActivity::class.java)
+            } else {
+                Intent(this, LoginActivity::class.java)
+            }
             startActivity(intent)
             finish()
         }, 2000)

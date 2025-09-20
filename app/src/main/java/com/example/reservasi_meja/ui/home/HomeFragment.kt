@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.reservasi_meja.R
+import com.example.reservasi_meja.data.FirebaseHelper
 import com.example.reservasi_meja.databinding.FragmentHomeBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,13 +25,29 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set user name if available
-        val currentUser = auth.currentUser
-        val displayName = currentUser?.displayName ?: "Pengguna"
-        binding.tvGreeting.text = "Halo, $displayName 👋"
+        // Perbaikan: Mengambil nama pengguna dari FirebaseHelper
+        FirebaseHelper.getCurrentUser { user ->
+            val displayName = user?.name ?: "Pengguna"
+            binding.tvGreeting.text = "Halo, $displayName 👋"
+        }
 
         binding.fabReservation.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_reservationFragment)
+        }
+
+        // Perbaikan: Menampilkan reservasi aktif dari Firebase
+        FirebaseHelper.getCurrentUserId()?.let { userId ->
+            FirebaseHelper.getUserReservations(userId, "confirmed") { reservations ->
+                if (reservations.isNotEmpty()) {
+                    val activeReservation = reservations.first()
+                    binding.tvDate.text = activeReservation.date
+                    binding.tvTime.text = activeReservation.time
+                    binding.tvTable.text = "Meja #${activeReservation.tableNumber}"
+                    binding.cardActiveReservation.visibility = View.VISIBLE
+                } else {
+                    binding.cardActiveReservation.visibility = View.GONE
+                }
+            }
         }
     }
 

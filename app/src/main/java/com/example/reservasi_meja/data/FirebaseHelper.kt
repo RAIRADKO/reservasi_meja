@@ -15,6 +15,40 @@ object FirebaseHelper {
 
     fun getCurrentUserId(): String? = auth.currentUser?.uid
 
+    // Fungsi baru untuk mendapatkan data pengguna saat ini
+    fun getCurrentUser(onDataLoaded: (User?) -> Unit) {
+        val userId = getCurrentUserId()
+        if (userId != null) {
+            database.child("users").child(userId).get()
+                .addOnSuccessListener { snapshot ->
+                    val user = snapshot.getValue(User::class.java)
+                    onDataLoaded(user)
+                }
+                .addOnFailureListener {
+                    onDataLoaded(null)
+                }
+        } else {
+            onDataLoaded(null)
+        }
+    }
+
+    // Fungsi baru untuk memperbarui profil pengguna
+    fun updateUserProfile(userId: String, newName: String, newPhone: String, onComplete: (Boolean, String?) -> Unit) {
+        val updates = hashMapOf<String, Any>(
+            "name" to newName,
+            "phone" to newPhone
+        )
+
+        database.child("users").child(userId).updateChildren(updates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onComplete(true, null)
+                } else {
+                    onComplete(false, task.exception?.message)
+                }
+            }
+    }
+
     fun registerUser(email: String, password: String, user: User, onComplete: (Boolean, String?) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -57,25 +91,29 @@ object FirebaseHelper {
             }
     }
 
-    fun getUserReservations(userId: String, onDataLoaded: (List<Reservation>) -> Unit) {
-        database.child("reservations")
-            .orderByChild("userId")
-            .equalTo(userId)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val reservations = mutableListOf<Reservation>()
-                    for (child in snapshot.children) {
-                        child.getValue(Reservation::class.java)?.let {
+    // Mengubah fungsi ini agar lebih generik
+    fun getUserReservations(userId: String, statusFilter: String? = null, onDataLoaded: (List<Reservation>) -> Unit) {
+        val query = database.child("reservations").orderByChild("userId").equalTo(userId)
+
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val reservations = mutableListOf<Reservation>()
+                for (child in snapshot.children) {
+                    child.getValue(Reservation::class.java)?.let {
+                        if (statusFilter == null || it.status == statusFilter) {
                             reservations.add(it)
                         }
                     }
-                    onDataLoaded(reservations)
                 }
+                // Urutkan berdasarkan tanggal dan waktu terbaru
+                reservations.sortByDescending { it.date + it.time }
+                onDataLoaded(reservations)
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    onDataLoaded(emptyList())
-                }
-            })
+            override fun onCancelled(error: DatabaseError) {
+                onDataLoaded(emptyList())
+            }
+        })
     }
 
     fun logout() {
