@@ -1,9 +1,40 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Reservasi_meja" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.ReservasiMeja" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
 
-    <style name="Theme.Reservasi_meja" parent="Base.Theme.Reservasi_meja" />
+    <style name="Theme.ReservasiMeja" parent="Base.Theme.ReservasiMeja">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ReservasiMeja.Splash" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+    </style>
+
+    <style name="OutlineButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:backgroundTint">@color/outline_button_bg</item>
+        <item name="android:textColor">@color/outline_button_text</item>
+        <item name="strokeColor">@color/outline_button_stroke</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+    </style>
 </resources>

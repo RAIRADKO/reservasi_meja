@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.reservasi_meja.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_reservationFragment"
+            app:destination="@id/reservationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reservationFragment"
+        android:name="com.example.reservasi_meja.ui.reservation.ReservationFragment"
+        android:label="Reservasi"
+        tools:layout="@layout/fragment_reservation" />
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.reservasi_meja.ui.history.HistoryFragment"
+        android:label="Riwayat"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.reservasi_meja.ui.notification.NotificationFragment"
+        android:label="Notifikasi"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.reservasi_meja.ui.profile.ProfileFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

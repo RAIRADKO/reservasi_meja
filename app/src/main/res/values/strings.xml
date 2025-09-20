@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">reservasi_meja</string>
+    <string name="app_name">Reservasi Meja</string>
+    <string name="welcome">Selamat Datang</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Nama Lengkap</string>
+    <string name="phone">Nomor Telepon</string>
+    <string name="create_reservation">Buat Reservasi</string>
+    <string name="reservation_date">Tanggal Reservasi</string>
+    <string name="reservation_time">Waktu Reservasi</string>
+    <string name="number_of_guests">Jumlah Tamu</string>
+    <string name="table_number">Nomor Meja</string>
+    <string name="submit">Submit</string>
+    <string name="confirm_reservation">Konfirmasi Reservasi</string>
+    <string name="cancel">Batal</string>
+    <string name="reservation_history">Riwayat Reservasi</string>
+    <string name="notifications">Notifikasi</string>
+    <string name="profile">Profil</string>
+    <string name="logout">Logout</string>
+    <string name="edit_profile">Edit Profil</string>
+    <string name="change_password">Ganti Password</string>
+    <string name="about_app">Tentang Aplikasi</string>
 </resources>
